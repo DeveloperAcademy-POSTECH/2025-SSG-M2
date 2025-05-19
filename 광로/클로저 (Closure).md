@@ -1,7 +1,7 @@
 
 1. **Named Closure**
 2. Unnamed Closure
-
+ㅌㅋㅊㅌㅋㅊㅋㅌㅊ
 쉽게 말하면 클로저도 함수임...
 
 ``` swift

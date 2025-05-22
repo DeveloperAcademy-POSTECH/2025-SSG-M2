@@ -108,3 +108,54 @@ closure()
 	print("Hello World!")
 })()
 ```
+
+
+
+0522
+
+1. 캡쳐(Capture) 클로저는 자신이 정의된 주변의 변수를 캡쳐해서 나중에 사용할 수 있다
+
+```swift
+func makeCounter() -> () -> Int {
+    var count = 0
+    return {
+        count += 1
+        return count
+    }
+}
+
+let counter = makeCounter()
+print(counter()) // 1
+print(counter()) // 2
+```
+→ 여기서 클로저는 count 라는 지역 변수를 기억(capture)하고 유지함
+
+2. escaping / non-escaping 클로저
+비동기 함수에서 클로저가 함수 종료 후에도 실행될 수 있음
+
+```swift
+func fetch(completion: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        completion()
+    }
+}
+// completion 이라는 클로저를 파라미터로 받음
+// () -> Void → 입력 값이 없고, 반환값도 없는 함수라는 뜻
+// 클로저가 DispatchQueue.main.asyncAfter(...) 안에서 1초 후에 실행되기 때문에,
+// fetch() 함수는 이미 종료되었을 수도 있음.
+// 그래서 클로저가 함수 바깥까지 살아남을 수 있도록 @escaping을 붙여야함!
+
+// DispatchQueue.main -> 메인 스레드에서 작업을 하겠다는 뜻
+// UI 업데이트나 사용자 인터페이스 관련 작업은 반드시 메인 스레드에서 실행해야함
+```
+
+`fetch()` 함수가 호출됨
+→ 함수는 클로저(`completion`)를 매개변수로 받음
+→ 1초 뒤, 메인 스레드에서 `completion()`을 실행하도록 예약함
+→ `fetch()` 함수는 이미 리턴되었을 수 있지만, 클로저는 살아있다가 1초 후에 실행됨
+→ 그래서 `@escaping`이 필요함
+
+** 동기 / 비동기 예시
+
+동기 - 실시간 대화, 음성/영상 통화, 채팅 등 즉각적인 상호 작용이 가능한 서비스
+비동기 - 게시판, 블로그, 이메일 등 사용자 간의 상호 작용이 느린 서비스

@@ -4,7 +4,7 @@
 
 **함수 선언**
 
-```
+``` swift
 func funcExample() {
 	print("Hello World")
 }
@@ -15,7 +15,7 @@ func funcExample() {
 
 **클로저 선언**
 
-```
+``` swift
 {(parameters)->Return Type in
 	print("Hello World")
 }
@@ -26,14 +26,14 @@ in : closure head와 closure body를 구분
 
 
 1. parameter 와 Return Type이 둘 다 없는 클로저
-```
+``` swift
 let closure = {() -> () in
 	print("Hello World")
 }
 ```
 
 2. parameter 와 Return Type이 둘 다 있는 클로저
-```
+``` swift
 let closure = {(name: String) -> String in
 	return "Hello, \(name)"
 }
@@ -41,13 +41,13 @@ let closure = {(name: String) -> String in
 ```
 
 3. 호출할때
-```
+``` swift
 closure("Hello")
 closure(name: "Hello") // error
 ```
 
 4. 변수나 상수에 대입 가능
-```
+``` swift
 let closure = { () -> () in
 	print("Closure")
 }
@@ -55,7 +55,7 @@ let closure2 = closure
 ```
 
 5. 파라미터 타입으로 클로저 전달 가능
-```
+``` swift
 func doing(closure: () -> ()) {
 	closure()
 }
@@ -69,7 +69,7 @@ doing(closure: { () -> () in
 ```
 
 6. 함수 반환 타입으로 클로저 사용 가능
-```
+``` swift
 func doing() -> () -> () {
 }
 
@@ -93,7 +93,7 @@ closure()
 **클로저 실행**
 
 1. 클로저가 대입된 변수나 상수로 호출
-```
+``` swift
 let closure = { () -> String in
 	return "Hello World!"
 }
@@ -101,7 +101,7 @@ closure()
 ```
 
 2. 클로저를 직접 실행
-```
+``` swift
 // 클로저를 () 소괄호로 감싸고, 마지막에 호출 구문인 ()를 추가하기
 
 ({ () -> () in

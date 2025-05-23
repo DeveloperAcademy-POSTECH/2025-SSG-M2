@@ -47,7 +47,9 @@ func greet(completion: (String) -> Void) {
 greet(completion: { name in
     print("안녕하세요, \(name)님!")
 })
+```
 
+```swift title:후행 error:1 hl:2-4
 // trailing
 greet { name in
     print("안녕하세요, \(name)님!")

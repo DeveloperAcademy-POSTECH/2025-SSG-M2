@@ -67,7 +67,7 @@ print(multiplyBy2(5))
 	+ Dictionary - 사전
 	+ Optional - 하나의 값이 있을 수도 있고 없을 수도 있는 타입
 
-+ map (데이터를 변형할 때 사용하는 함수 - 변형)
++ # map (데이터를 변형할 때 사용하는 함수 - 변형)
 	+ 기존 컨테이너 요소를 매개변수로 받아, 변환한 값을 새로운 컨테이너에 담아 반환(각 요소에 변형을 가해 새로운 배열로 반환(만들어주는 함수))
 	``` swift
 	func map<T>(
@@ -112,7 +112,31 @@ print(multiplyBy2(5))
 	print(doubled)  
 	// [2, 4, 6]
 	```
-	
+	+ array.append(새로운_값)
+		+ array → var로 선언(값을 변경해야 하니까)
+		+ 새로운_값 → 배열 요소와 같은 타입이어야 함
+		```swift
+		var numbers = [1, 2, 3]
+		numbers.append(4)
+		// [1, 2, 3, 4]
+
+
+		var names = ["세연", "유나"]
+		names.append("소정")
+		// ["세연", "유나", "소정"]
+
+
+		var doubled: [Int] = []
+		let original = [1, 2, 3]
+		
+		for num in original {
+		    doubled.append(num * 2)
+		}
+		
+		print(doubled)  
+		// [2, 4, 6]
+		```
+		
 	```swift
 	// map
 	
@@ -134,7 +158,7 @@ print(multiplyBy2(5))
 	```
 	
 
-+ filter (데이터를 필터링할 때 사용하는 함수 - 조건 필터링)
++ # filter (데이터를 필터링할 때 사용하는 함수 - 조건 필터링)
 	+ 기존의 컨테이너의 전체 요소를 매개변수로 받아, 필터링 한 값을 새로운 컨테이너에 담아 반환 (조건에 맞는 요소만 걸러 새로운 배열로 반환)
 	```swift
 	func filter(
@@ -155,7 +179,7 @@ print(multiplyBy2(5))
 	```
 
 
-+ reduce(데이터를 결합할 때 사용하는 함수 - 누적 계산)
++ # reduce(데이터를 결합할 때 사용하는 함수 - 누적 계산)
 	+ 컨테이너 내부의 요소를 매개변수로 받아, 하나로 통합하여 반환 (모든 요소를 하나의 값으로 합침)
 	```swift
 	func reduce<Result>(
@@ -191,11 +215,41 @@ print(multiplyBy2(5))
 	// " Swift 는 재미있다"
 
 	```   
+
++ # compactMap
+	+ 컨테이너의 각 요소를 조건을 지정하여 호출할 때, nil 이 아닌 배열을 반환
+	```swift
+	func compactMap<ElementOfResult>(
+		_ transform: (Self.Element) throws -> ElementOfResult?
+	) rethrows -> [ElementOfResult]
+	```
+	+ transform은 컨테이너의 요소를 매개변수로 받아 선택적 값을 반환하는 클로저
+	+ map
+		```swift
+		let possibleNumbers = ["1", "2", "three", "///4///", "5"]
+		
+		let mapped = possibleNumbers.map { str in Int(str) }
+		// [Optional(1), Optional(2), nil, nil, Optional(5)]
+		```
+	+ compactMap
+		```swift
+		let possibleNumbers = ["1", "2", "three", "///4///", "5"]
+		let compactMapped = possibleNumbers.compactMap { str in Int(str) }
+		// [1, 2, 5]
+		```
+	+ map과의 차이점
+		+ map을 사용했을때는 Optional 이지만,
+		  compactMap을 사용하니 Int에 해당하는 값만 들어감
+		+ why 사용? → compactMap이 옵셔널 바인딩 기능을 가지고 있다
+		  옵셔널 바인딩이 뭔데?
+		+ map의 원래 기능에서 옵셔널 제거까지 가능,
+		  map 보다 단순하고 가볍게 바꿀 수 있음.
 ## 코드 예시
-+ 실제 코드 예시를 작성
++ 
 
 ## Keywords
-+ 파생된 키워드들을 작성
++ 
 
 ## References
-- 참고한 레퍼런스를 작성 (예 : Apple의 공식 문서)
+- Apple의 공식 문서
+- GPT

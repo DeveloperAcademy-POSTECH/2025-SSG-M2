@@ -2,6 +2,7 @@
 *프로토콜*
 -> 특정 기능을 제공하기 위해 타입이 지켜야 하는 '규칙'의 집합
 쉽게 말하면 이 타입은 반드시 이런 기능을 구현해야 한다 와 같은 약속!
+즉, ==프로토콜 = 약속== 
 
 ``` swift
 protocol MyProtocol {
@@ -29,7 +30,280 @@ struct Person: MyProtocol {
 
 그럼 이게 왜 필요할까?
 
+1) **공통된 기능을 강제해서** 구조를 잡아줌
+2) 다형성 (Polymorphism)을 가능하게 해줌 -> 다양한 타입을 같은 방식으로 다룰 수 있음
+3) 코드 재사용성이 높아지고, 테스트도 쉬워짐
 
+이렇게 이야기 하니깐 더 어려움 ...예시코드로 보자
+
+``` swift
+// 프로토콜 정의
+protocol Drivable {
+    var speed: Int { get set }
+    func drive()
+}
+
+// 구조체가 프로토콜 채택
+struct Car: Drivable {
+    var speed: Int
+
+    func drive() {
+        print("Driving at \(speed) km/h")
+    }
+}
+
+let myCar = Car(speed: 100)
+myCar.drive() // 출력: Driving at 100 km/h
+```
+
+이렇게 되면 Car 는 Drivable이라는 "프로토콜 = 약속"을 지킨것이다.
+
+자 그럼 위의 3가지 이유로 찾아 보자!
+
+``` swift
+protocol Drivable {
+    var speed: Int { get set }
+    func drive()
+}
+```
+
+이 Drivable 프로토콜은 쉽게 말해서다 쉽게 말해서 ㅋㅋㅋ
+
+"달릴 수 있는 타입은 반드시 speed와 drive()를 가져야 해!" 라는 명확한 규칙을 세워준다.
+이걸 따르면 누가 만들었든, 어떤 구조체든 클래스든 다 speed와 drive()를 가지게 된다.
+
+이렇게 되면 다른 '탈것' 들도 가져와서 프로토콜을 붙이면 된다.
+
+``` swift
+struct Bike: Drivable {
+    var speed: Int
+    func drive() {
+        print("Pedaling at \(speed) km/h")
+    }
+}
+
+struct Scooter: Drivable {
+    var speed: Int
+    func drive() {
+        print("Scooting at \(speed) km/h")
+    }
+}
+```
+ㅋㅋㅋ 스쿠터, 바이크 다됨 ㅋㅋㅋ (서로 다른 타입이지만 일관된 구조로 동작하게 강제 가능)
+
+
+2) 다형성
+->  프로토콜을 타입처럼 사용할 수 있음! -> 다양한 타입들을 하나의 컬렉션으로 묶고, 동일한 방식으로 처리!
+
+
+``` swift
+
+let vehicles: [Drivable] = [
+    Car(speed: 100),
+    Bike(speed: 20),
+    Scooter(speed: 30)
+]
+
+for vehicle in vehicles {
+    vehicle.drive()
+}
+
+사실 이렇게만 보면 ..개어려움 좀더 자세하게 코드를 쓴다고 하면 아래와 같이 됨
+
+
+protocol Drivable {
+    var speed: Int { get set }
+    func drive()
+}
+
+struct Car: Drivable {
+    var speed: Int
+    func drive() {
+        print("Car driving at \(speed) km/h")
+    }
+}
+
+struct Bike: Drivable {
+    var speed: Int
+    func drive() {
+        print("Bike riding at \(speed) km/h")
+    }
+}
+
+struct Scooter: Drivable {
+    var speed: Int
+    func drive() {
+        print("Scooter scooting at \(speed) km/h")
+    }
+}
+
+let vehicles: [Drivable] = [
+    Car(speed: 100),
+    Bike(speed: 20),
+    Scooter(speed: 30)
+]
+
+for vehicle in vehicles {
+    vehicle.drive()
+}
+
+```
+
+정리를 해보면
+
+- Car, Bike, Scooter는 각각 전혀 다른 타입
+-  그런데 이 세 타입은 모두 Drivable 프로토콜을 채택하고 있음
+	 (즉, drive() 라는 함수가 공통적으로 구현되어 있음)
+- 그래서 Swift는 이들을 Drivable타입으로 묶어서 배열에 넣을 수 있음 
+  
+``` swift
+	let vehicle: [Drivable] = [...]
+```
+요런 느낌임...
+
+- 이 배열을 for vehicle in vehivles로 반복할 때,
+  -> Swift는 vehicle이 정확히 어떤 타입인지는 몰라도,
+	-> Drivable 프로토콜을 따른다는 건 알고 있으니,
+		-> 그냥, drive()를 호출해도 알아서 각 타입의 구현이 실행됨
+
+정리하면 프로콜의 다형성 성질 때문에
+
+=="한 줄의 코드로 다 다룰 수 있게 되는 것==
+
+
+3)  코드 재사용성과 테스트 용이성
+-> 공통된 인터페이스를 기준으로 동작을 나눌 수 있기 때문에, 테스트나 기능 확장이 쉬워짐
+
+``` swift
+func testDrive(vehicle: Drivable) {
+    print("Test driving...")
+    vehicle.drive()
+}
+
+let car = Car(speed: 100)
+let bike = Bike(speed: 25)
+
+testDrive(vehicle: car)
+testDrive(vehicle: bike)
+```
+
+어떤 부분에서 재사용성이 되고 대단한 건지 자세히 보자!
+
+```swift
+func testDrive(vehicle: Drivable) {
+    print("Test driving...")
+    vehicle.drive()
+}
+
+여기서 자세히 보면 
+
+이 함수는 Drivable이라는 프로토콜 타입 하나만 받도록 정의 되어 있음.
+다시 말해, Car, Bike, Scooter, 또는 나중에 추가될 어떤 타입이든,
+Drivable만 채택하고 있으면 다 사용 가능
+
+```
+
+만약 새로운 타입 을 추가 한다면??
+
+``` swift
+
+struct Bus: Drivable {
+    var speed: Int
+    func drive() {
+        print("Bus zooming at \(speed) km/h")
+    }
+}
+let bus = Bus(speed: 80)
+testDrive(vehicle: bus) // 아무 수정 없이 사용 가능!
+```
+
+WoW 함수를 한 번만 정의하면...어떤 타입이든 프로토콜만 채택하면 재사용 가능!!!
+
+이게 대단한거임 왜?? 좀 더 드릴링을 해보면!!
+
+스프트웨어 개발에서는 '아무 수정 없이 된다'는 사실 진짜 엄청난 일임!!
+
+- 확장(Extension)이 가능하면서도 기존 코드에 영향을 받지 않는다는 거임!!!!!
+-> textDrive() 는 Car나 Bike만 염두에 두고 만든 게 아니야...
+그런데 Bus 라는 새로운 타입이 생겼는데도,
+textDrive() 코드 한줄도 수정 안하고 그냥 작동함.
+
+
+이런 행위를 OOP(Open-Closed-Principle)이라고 함...
+-> 확장에는 열려 있어야 하고, 수정에는 닫혀 있어야 한다.
+==다시말해, 새로운 타입 추가는 가능하면서 기존 코드는 그대로임 이게 WOW 인거임==
+
+이걸 만약에 프로토콜 없이 만들면 ....
+
+``` swift
+func testDrive(car: Car) { car.drive() }
+func testDrive(bike: Bike) { bike.drive() }
+func testDrive(scooter: Scooter) { scooter.drive() }
+func testDrive(bus: Bus) { bus.drive() }
+```
+
+
+진짜 ..마더.....xx이지 않음???
+- 새로운 탈것이 생길 때마다 함수를 계속 추가하거나 수정해야 함!
+- 코드는 계속 불어나고, 테스트도 복잡해지고, 버그 가능성도 증가함
+- 의존성도 높고, 유지보수가 힘들어짐!!
+  
+  이걸 프로토콜로 하면..
+  
+``` swift
+func testDrive(vehicle: Drivable) { vehicle.drive() }
+```
+
+이렇게 한줄로 느낌있게 정리가 가능
+
+
+
+## iOS 에서 실제로 프로토콜이 사용 되는 예시
+
+1. View (이건 사실 너무 쉬운건데 .....)
+
+struct ContentView: View 이거임 ㅋㅋㅋ
+-> 이 구조체는 View 프로토콜을 따른다!! 는 뜻임
+
+``` swift
+protocol View {
+    associatedtype Body: View
+    var body: Self.Body { get }
+}
+```
+실제 View는 위와 같은 코드로 생겨 있음 (Swift UI 프레임워크 안에서 이미 선언되어 있는 프로토콜 임)
+
+-  SwiftUI에서는 **모든 화면 요소**가 View여야 해.
+- 그 View는 반드시 body라는 속성을 가져야 하고,
+- 그 안에 또 다른 View를 리턴해야 함.
+
+위 양식을 따르면 아래와 같음
+
+```swift
+struct MyView: View {
+    var body: some View {
+        Text("안녕")
+    }
+}
+```
+
+MyView는 View 프로토콜을 따르며, 반드시 body 속성을 구현해야 한다. 는 약속을 지킨 것임!
+
+그럼 ..왜 처음에 View 로 이렇게 프로토콜 선언을 할까??
+
+1. 통일된 방식으로 화면 구성
+-> 모든 UI 요소가 View니까, 조립하듯 붙이기 쉽다
+2. 자동 랜더링이 가능함
+-> body를 Swift UI가 호출해서 자동으로 화면을 업데이트함
+3. 간결함 & 가독성
+-> Text, 를 쓰든 ..VStack, HStack를 쓰든 SwiftUi가 알아서 View 조합하고 동작 시킴 (개꿀....)
+
+
+
+
+
+
+자 그럼 실제로 다른 어떤  프로토콜이 있는지 알아보자!!!
 
 
 ## 동등성 비교 (Equatable)

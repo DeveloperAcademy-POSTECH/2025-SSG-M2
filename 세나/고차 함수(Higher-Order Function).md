@@ -202,11 +202,10 @@ print(multiplyBy2(5))
 	+ 실행 해석
 		1. 초기값: 0
 		2. 첫 반복: 0 + 1 = 1
-		3.  첫 반복: 0 + 1 = 1
-		4. 두 번째: 1 + 2 = 3
-		5.  세 번째: 3 + 3 = 6
-		6. 네 번째: 6 + 4 = 10
-		7. 최종 결과: 10
+		3. 두 번째: 1 + 2 = 3
+		4.  세 번째: 3 + 3 = 6
+		5. 네 번째: 6 + 4 = 10
+		6. 최종 결과: 10
 	
 	```swift
 	let words = ["Swift", "는", "재미있다"]
@@ -216,14 +215,26 @@ print(multiplyBy2(5))
 
 	```   
 
-+ # compactMap
+
++ # compactMap(nil 제거 + 변형)
 	+ 컨테이너의 각 요소를 조건을 지정하여 호출할 때, nil 이 아닌 배열을 반환
+	  (주로 nill을 제거하거나, 변환 과정에서 nill이 나올 수 있는 경우 필터링)
 	```swift
 	func compactMap<ElementOfResult>(
 		_ transform: (Self.Element) throws -> ElementOfResult?
 	) rethrows -> [ElementOfResult]
 	```
 	+ transform은 컨테이너의 요소를 매개변수로 받아 선택적 값을 반환하는 클로저
+	  
+	Ex.
+	 ```swift
+		let string = ["1", "2", "three", "4"]
+		
+		let numbers = strings.compactMap { Int($0) }
+		// 결과: [1, 2, 4]
+		```
+	+ "three"는 `Int( "three" )`가 `nill`이기 때문에 제거
+	  
 	+ map
 		```swift
 		let possibleNumbers = ["1", "2", "three", "///4///", "5"]
@@ -244,8 +255,165 @@ print(multiplyBy2(5))
 		  옵셔널 바인딩이 뭔데?
 		+ map의 원래 기능에서 옵셔널 제거까지 가능,
 		  map 보다 단순하고 가볍게 바꿀 수 있음.
-## 코드 예시
-+ 
+
+
++ # flatMap(이중 배열 펼치기)
+  + 컨테이너의 각 요소를 사용하여 지정된 조건을 호출할 때, 순차적인 결과의 배열을 반환
+    (중첩 배열 제거)
+	```swift
+	func flatMap<SegmentOfResult>(
+		_ transform: (Self.Element) throws -> SegmentOfResult) 
+		rethrows -> [SegmentOfResult.Element] 
+		where SegmentOfResult : Sequence
+	```
+	-> 쉽게 말해 중첩된 배열을 제거하고 평평한 배열(flattened array)을 리턴
+	
+	1. 배열을 한 단계 평탄화할 때 (Flattening)
+		+ 2차원 배열을 1차원 배열로 바꿈(평평한 배열(flattened array))
+			```swift
+			let numbers = [[1], [2, 3], [4, 5, 6], [7, 8, 9, 10]]
+			
+			let flatMapped = numbers.flatMap { $0 }
+			print(flatMapped)
+			// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			```
+		
+		+ 3차원 배열을 `flatMap` 2번 사용해서 1차원 배열로 바꿈(평평한 배열(flattened array)
+			```swift
+			let numbers = [[[1], [2, 3], [4, 5, 6], [7, 8, 9, 10]]]
+			
+			let flatMapped = numbers.flatMap { $0 }
+			print(flatMapped)
+			// [[1], [2, 3], [4, 5, 6], [7, 8, 9, 10]]
+			
+			let doubleFlatMapped = flatMapped.flatMap { $0 }
+			print(doubleFlatMapped)
+			// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			```
+		- flatMap을 한 번에 두번 사용이 가능함
+			```swift
+			let numbers = [[[1], [2, 3], [4, 5, 6], [7, 8, 9, 10]]]
+			
+			let flatMapped = numbers.flatMap { $0 }.flatMap{ $0 }
+			print(flatMapped)
+			// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			```
+	
+	2. Optional, Result 같은 컨테이너 안의 컨테이너를 **펼쳐서 1단계로** 만들 때
+	   + 1은 1번, 2는 2번, 3은 3번 반복됨 → 하나의 배열로 펼쳐짐
+	     ```swift
+		   let numbers = [1, 2, 3]
+		   let mapped = numbers.flatMap { Array(repeating: $0, count: $0) }
+		// 결과: [1, 2, 2, 3, 3, 3]
+			```
+		+ Optional 내의 값을 꺼내서 변환한 후 다시 Optional 감싸는 방식 (Optional 제거 x)
+
+
++ # forEach(반복 실행)
+  + 각 요소에 대해 반복 실행 (반환값 없음)
+    ```swift
+		let numberWords = ["one", "two", "three"]
+		
+		numberWords.forEach { word in
+		    print(word)
+		}
+		// Prints "one"
+		// Prints "two"
+		// Prints "three"
+		```
+	+ for-in과의 차이
+	  ```swift
+		let numberWords = ["one", "two", "three"]
+		
+		for word in numberWords {
+		    print(word)
+		}
+		// Prints "one"
+		// Prints "two"
+		// Prints "three"
+		```
+		1. break/continue 사용: for-in 가능, forEach 불가능
+		2. 클로저 내부: for-in은 return은 클로저만 종료, forEach return해도 반복 전체 종료 X
+	+ break, continue 사용 불가
+		```swift
+		let nums = [1, 2, 3, 4, 5]
+		nums.forEach { num in
+		    if num == 3 {
+		        return // 여기서 반복 종료되지 않음!
+		    }
+		    print(num)
+		}
+		// 출력: 1, 2, 4, 5
+		```
+			return은 클로저 내부만 빠져나올 뿐 반복을 종료하지 않음.
+	+ 체이닝과 함께 쓰기 좋음
+	  ```swift
+		let names = ["seyeon", "hanna", "jake"]
+		names.filter { $0.count > 5 )
+		     .forEach { print("이름: \($0)") }
+		```
+		+ 체이닝: 함수를 이어서 줄줄이 연결해서 쓰는 것
+		  (함수들을 이어붙여 데이터를 처리하는 깔끔한 방법)
+		  ```swift
+			let numbers = [1, 2, 3, 4, 5]
+			numbers
+				.filter { $0 % 2 == 0 }     // 짝수만 남김 → [2, 4]
+				.map { $0 * 10 }            // 각각 10 곱하기 → [20, 40]
+				.forEach { print($0) }      // 출력: 20, 40
+				```
+				-> forEach는 체이닝의 끝에만 사용해야 함.(return 값이 없기 때문)
+
+
++ # Map 삼형제
+  + map: 변환만 함 (원본 구조 유지)
+  + compactMap: 변환 + nill 제거 (Optional 처리)
+  + flatMap: 변환 + 평탄화 (중첩된 배열 펼침)
+	```swift
+	let input = ["1", "2", "three"]
+	
+	let a = input.map { Int($0) }
+	// [Optional(1), Optional(2), nil]
+	// Optional이 있으면 그대로 남아있고, 배열이 중첩되어도 유지됨
+	
+	let b = input.compactMap { Int($0) }
+	// [1, 2]
+	// Optional 결과 중 nil을 제거하고, 언랩함
+	
+	let c = input.map { Array(repeating: $0, count: 2) }
+	// [["1", "1"], ["2", "2"], ["three", "three"]]
+	
+	let d = input.flatMap { Array(repeating: $0, count: 2) }
+	// ["1", "1", "2", "2", "three", "three"]
+	```
+	
+	- ## Map
+		```swift
+		let a = input.map { Int($0) }
+		// 결과: [Optional(1), Optional(2), nil]
+		```
+		- map은 각 요소에 대해 Int($0)을 수행
+		- 결과는 모두 **Optional(Int)** (왜냐하면 Int 초기화는 실패할 수도 있기 때문)
+	  
+	+ ## CompactMap
+	  ```swift
+		let b = input.compactMap { Int($0) }
+		// 결과: [1, 2]
+			```
+		- compactMap은 Optional을 반환한 후, **nil을 제거하고 언랩**까지 해줌
+		- "three"는 숫자로 변환되지 않으므로 결과에서 제거
+	  
+	- ## FlatMap
+	  ```swift
+		let c = input.map { Array(repeating: $0, count: 2) }
+		// 결과: [["1", "1"], ["2", "2"], ["three", "three"]]
+		
+		let d = input.flatMap { Array(repeating: $0, count: 2) }
+		// 결과: ["1", "1", "2", "2", "three", "three"]
+		```
+		- 각 요소를 2번씩 반복한 배열로 변환 (Array(repeating:count:)) -> 2차 배열
+		- flatMap은 결과 배열을 **1차원으로 평탄화** (즉, 2차원 → 1차원으로 합침)
+
+
 
 ## Keywords
 + 

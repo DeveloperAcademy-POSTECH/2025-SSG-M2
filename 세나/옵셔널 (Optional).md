@@ -79,18 +79,108 @@ var name: String? = "Sena"
 		}
 		```
 
-+ 옵셔널 체이닝 (`?.`)
-	```swift
-	let length: name?.count // name이 nill이면 전체 결과도 nill
-	```
-	+ 옵셔널 값이 nill일 수 있는 상황에서 안전하게 속성이나 메서드에 접근하는 방법
-
 
 + Nill 병합 연산자 ??
   ```swift
   let realName - name ?? "이름 없음" // name이 nill이면 "이름없음"을 대신 사용
 	```
 
+
++ 옵셔널 체이닝 (`?.`)
+	```swift
+	let length: name?.count // name이 nill이면 전체 결과도 nill
+	```
+	+ 옵셔널 값이 nill일 수 있는 상황에서 안전하게 속성이나 메서드에 접근하는 방법
+	
+	+ 옵셔널 체이닝으로 프로퍼티 접근
+		```swift
+		struct Student {
+		    var name: String
+		}
+		
+		let student: Student? = Student(name: "세나")
+		print(student?.name)   // Optional("세나")
+		
+		let noOne: Student? = nil
+		print(noOne?.name)     // nil
+		```
+		
+	+ 메서드 호출
+	  ```swift
+	  class Dog {
+	    func bark() {
+		        print("멍멍!")
+		    }
+		}
+		
+		let myDog: Dog? = Dog()
+		myDog?.bark()  // "멍멍!" 출력
+		
+		let ghostDog: Dog? = nil
+		ghostDog?.bark()  // 아무 일도 일어나지 않음 (앱도 안 뻗음!)
+		```
+	
+	+ 다단계 체이닝
+		```swift
+		struct Owner {
+		    var pet: Dog?
+		}
+		
+		let owner = Owner(pet: Dog())
+		owner.pet?.bark() // "멍멍!"
+		```  
+	
+	+ 언제 사용?
+	  1. 값이 nill일 수 있는 경우
+	  2. nill이면 그냥 무시하고, 아니면 이어서 무언가 하고 싶을 때
+	  3. 중첩된 객체 속성에 접근할 때 (ex. user → profile → email 등)
+
++ 선택적 체이닝
+  + 구조체에서 체이닝
+  ```swift
+	  struct Person {
+	    var residence: Residence?
+	}
+	
+	struct Residence {
+	    var numberOfRooms = 1
+	}
+	
+	let person = Person(residence: nil)
+	
+	let roomCount = person.residence?.numberOfRooms
+	print(roomCount)  // nil
+	```
+		-> residence가 nil이라서 → .numberOfRooms에 접근하지 않고 nil 반환됨.
+		
+	+ 메서드에서 호출
+	  ```swift
+	  class Dog {
+	    func bark() {
+	        print("멍멍!")
+	    }
+		}
+		
+		let dog: Dog? = Dog()
+		dog?.bark() // 멍멍!
+		
+		let noDog: Dog? = nil
+		noDog?.bark() // 아무 일도 일어나지 않음
+		```
+		-> 메서드도 ?.로 호출 가능 → 안전하게 무시됨
+		
+	+ 체인 연속 사용
+	  ```swift
+	  class Company {
+	    var ceo: Person?
+		}
+		
+		let apple = Company()
+		let ceoName = apple.ceo?.residence?.numberOfRooms
+		// 중간에 ceo가 nil이면, 전체 결과는 nil
+		```
+		-> 여러 옵셔널 프로퍼티를 안전하게 타고 내려감
+		-> 중간에서 하나라도 nill이면 전체가 nill
 
 
 ## Keywords

@@ -4,6 +4,7 @@
 쉽게 말하면 이 타입은 반드시 이런 기능을 구현해야 한다 와 같은 약속!
 즉, ==프로토콜 = 약속== 
 
+
 ``` swift
 protocol MyProtocol {
     var name: String { get set }   // 프로퍼티 요구
@@ -28,13 +29,17 @@ struct Person: MyProtocol {
 
 ```
 
+
 그럼 이게 왜 필요할까?
+
 
 1) **공통된 기능을 강제해서** 구조를 잡아줌
 2) 다형성 (Polymorphism)을 가능하게 해줌 -> 다양한 타입을 같은 방식으로 다룰 수 있음
 3) 코드 재사용성이 높아지고, 테스트도 쉬워짐
 
 이렇게 이야기 하니깐 더 어려움 ...예시코드로 보자
+
+
 
 ``` swift
 // 프로토콜 정의
@@ -60,6 +65,7 @@ myCar.drive() // 출력: Driving at 100 km/h
 
 자 그럼 위의 3가지 이유로 찾아 보자!
 
+
 ``` swift
 protocol Drivable {
     var speed: Int { get set }
@@ -69,10 +75,13 @@ protocol Drivable {
 
 이 Drivable 프로토콜은 쉽게 말해서다 쉽게 말해서 ㅋㅋㅋ
 
+
 "달릴 수 있는 타입은 반드시 speed와 drive()를 가져야 해!" 라는 명확한 규칙을 세워준다.
 이걸 따르면 누가 만들었든, 어떤 구조체든 클래스든 다 speed와 drive()를 가지게 된다.
 
+
 이렇게 되면 다른 '탈것' 들도 가져와서 프로토콜을 붙이면 된다.
+
 
 ``` swift
 struct Bike: Drivable {
@@ -89,7 +98,10 @@ struct Scooter: Drivable {
     }
 }
 ```
+
 ㅋㅋㅋ 슛터, 바이크 다됨 ㅋㅋㅋ (서로 다른 타입이지만 일관된 구조로 동작하게 강제 가능)
+
+
 
 
 2) 다형성
@@ -183,6 +195,10 @@ Scooter zooming at 30 km/h
 정리하면 프로콜의 다형성 성질 때문에
 
 =="한 줄의 코드로 다 다룰 수 있게 되는 것==
+
+
+
+
 
 
 3)  코드 재사용성과 테스트 용이성
@@ -483,7 +499,9 @@ if task1.priority > task2.priority {
     print("task1이 먼저 실행됨")
 }
 ```
--> 게임 케릭터 능력치, 정력된 목록 등에서 사용 가능
+-> 게임 케릭터 능력치, 정리된 목록 등에서 사용 가능
+
+
 
 2) SwiftUI Picker 등 정렬이 필요한 UI
 
@@ -508,6 +526,11 @@ let sortedAges = ages.sorted()  // OK
 
 ------------------------------------------------------------------------
 (이 부분은 Hashable 값 공부를 하면서 추가적으로 설명 진행 예정)
+
+
+
+
+
 
 
 ## 해시값 생성 (Hashable)

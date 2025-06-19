@@ -307,7 +307,7 @@ struct ContentView: View {
 
 ```
 
-근데 Swift는 클래스도 있는데 왜 struct일까?
+==근데 Swift는 클래스도 있는데 왜 struct일까?==
 
 1) SwiftUI는 값 기반 (Value-Based) UI 프레임 워크
 - - SwiftUI는 UI를 구성할 때 ==**값 타입** ==중심으로 작동!
@@ -326,6 +326,8 @@ struct ContentView: View {
 3) Swift언어 자체가 Struct 우선 철학을 가지고 있음
 - 구조체를 통해 개발자가 불필요한 복잡성 (메모리 누수, ARC 관리 없이) 간단하고 안전하게
   코드를 작성하게 유도
+
+
 
 그렇 다면 class를 쓰는 대표적인 순간들
 

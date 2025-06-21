@@ -3,10 +3,12 @@
 >GQ2. 어디에 쓰는거야??
 
 ## Description
-- 제네릭
+
+- 제네릭 (Generic)
 -> "어떤 타입이 들어올지 모르지만, 나중에 정해질 타입을 미리 설정해두는 것"
 
 ex) GPT가 아주 쉽게 설명해줌...예시가 너무 좋아서 가지고 옴
+
 
 1) 컵을 만들고 싶음
 2) 그런데 물, 주스, 커피 뭐가 들어올지 몰라.
@@ -15,6 +17,7 @@ ex) GPT가 아주 쉽게 설명해줌...예시가 너무 좋아서 가지고 옴
    -> ==**실제 사용할 때 타입(물, 주스, 커피)을 정하는 것**==이 제네릭이야.
 
 ## 주요 기능
+
 + 사실 Swift의 기본 타입이 이미 제네릭으로 만들어져 있음
 ``` swift
 let names: [String] = ["Chanu", "Joon"]         // Array<String>
@@ -62,7 +65,6 @@ printValue(value: 123)       // Int
 printValue(value: "Hello")   // String
 
 알아서 타입이 결정됨 
-
 
 ```
 
@@ -138,8 +140,7 @@ CustomButton 하나만 으로 Text, Image, HStack 등 다양한 버튼 만들 �
 
 ```
 
-## KeywordsΩ
+## Keywords
 + 프로토콜
 
 ## References
-- 참고한 레퍼런스를 작성 (예 : Apple의 공식 문서)

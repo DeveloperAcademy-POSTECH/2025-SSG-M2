@@ -1,4 +1,4 @@
-# 🌱 Swift Universe - Team2
+# 🌱 Swift Universe - Team2 (M2)
 
 Swift Study Group에 오신 것을 환영합니다! 🤗
 이 저장소는 Swift 언어를 탐구하고 깊이 있는 학습을 진행하기 위한 공간입니다. 

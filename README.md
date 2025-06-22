@@ -1,27 +1,71 @@
-# 🌱 Swift Universe - Team1
+# 🌱 Swift Universe - Team2
 
 Swift Study Group에 오신 것을 환영합니다! 🤗
 이 저장소는 Swift 언어를 탐구하고 깊이 있는 학습을 진행하기 위한 공간입니다. 
 Obsidian을 활용하여 학습한 내용을 Markdown 노트로 기록하고, GitHub를 통해 협업하여 서로의 학습을 공유하고 발전할 수 있도록 구성되었습니다.
 
-### 🪐 지금 우리는 (매주 업데이트 예정)
-<img width="1300" alt="image" src="https://github.com/user-attachments/assets/ee53a167-bd0a-4656-822b-a3548ac28a9d" />
+## 🤝 협업 방식
+### 스터디 일정
+- 매주 월요일 16:00 ~ 18:00
+- 매주 목요일 16:00 ~ 18:00
 
-### 👥 Team Member
-+ @luminouxx
-+ @luminouxx
-+ @luminouxx
-+ @luminouxx
-+ @luminouxx
+### 작업 순서
+1. 이슈 생성
+2. 작업용 브랜치 생성
+3. 자신의 브랜치에서 작업 완료
+4. Pull Request 생성
+5. 리뷰 및 승인
+6. ```main```으로 머지
 
+### 브랜치 전략
+모든 작업은 main 브랜치를 기준으로 진행되며, 학습 내용은 PR을 통해 병합
+
+### 브랜치 네이밍 규칙
+**형식**: ```이름-이슈번호```
+- 구분자: 하이픈(-) 사용 통일
+
+**이슈 연동 예시**
+```
+sena-1
+ethan-2
+happyjay-3
+kwangro-4
+nyx-5
+```
+
+### 커밋 컨벤션
+```
+타입 설명
+docs:	Markdown 문서 작성 또는 수정
+feat:	새로운 기능 또는 Swift 예제 추가
+fix:	오타 수정, 잘못된 경로 등 버그 수정
+chore:	이미지 추가, 폴더 정리 등 기타 작업
+```
+예시
+```
+docs: 클로저 학습 내용 추가  
+feat: 클로저 예제 추가  
+chore: 클로저 예제 이미지 추가
+```
+
+## 👥 Team Member
+
+<div align="center">
+  
+| <img src="https://github.com/hiseyeon.png" width="100"/><br/>**Sena**<br/>[@hiseyeon](https://github.com/hiseyeon) | <img src="https://github.com/chefcoding.png" width="100"/><br/>**chefcoding**<br/>[@chefcoding](https://github.com/chefcoding) |  <img src="https://github.com/SingleBungIe.png" width="100"/><br/>**SingleBungIe**<br/>[@SingleBungIe](https://github.com/SingleBungIe) | 
+|:---:|:---:|:---:|
+| <img src="https://github.com/hkwangro.png" width="100"/><br/>**hkwangro**<br/>[@hkwangro](https://github.com/hkwangro) | <img src="https://github.com/freedobby77.png" width="100"/><br/>**freedobby77**<br/>[@freedobby77](https://github.com/freedobby77) |  
+
+</div
+  
 - 그룹장은 매주 돌아가며 변경될 수 있으며, 새로운 주차마다 학습 주제를 지정할 수 있습니다.
 - 팀원들은 PR을 통해 학습 내용을 공유하고, 서로의 노트를 리뷰하며 피드백을 제공할 수 있습니다.
 
 ## 🚀 시작하기
 ### 📌 저장소 클론
 ```bash
-git clone https://github.com/DeveloperAcademy-POSTECH/SSG-Team1.git
-cd SSG-Team1.git
+git clone https://github.com/DeveloperAcademy-POSTECH/2025-SSG-M2.git
+cd 2025-SSG-M2.git
 // obsidian 저장소의 vault를 해당 디렉토리로 설정해주세요!
 ```
 

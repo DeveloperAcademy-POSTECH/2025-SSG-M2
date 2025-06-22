@@ -1,6 +1,3 @@
->[!question]
->GQ1. GQ를 쓰세요
->GQ2. GQ를 쓰세요
 
 ## Description
 - 정의
@@ -11,16 +8,16 @@
   -> 'nil' 이라는 값을 가질 수 있으면 Optional Type이고,
   이 Optional Type을 선언할 땐 타입 옆에 ?(물음표)를 붙인다
   
-  + nill 이란?
+  + nil 이란?
     : 값이 없음
 
   + 왜 쓸까?
     - 값이 없을 수 있는 상황을 명시적으로 처리
-    - 런타임 에러(nill 때문에 앱이 뻗는 것) 줄이려는 목적
+    - 런타임 에러(nil 때문에 앱이 뻗는 것) 줄이려는 목적
       -> 실행 중에 에러가 발생해서 앱이 멈추고 꺼지는 현상
       (실행 중 오류가 나서 앱이 강제 종료되는 것 (Crash))
       ```swift
-	      var name: String? = nill
+	      var name: String? = nil
 	      print(name!) // 여기서 앱이 뻗음
 	      // 아무것도 없는데 꺼내려고 하면 에러 발생
 		```
@@ -28,7 +25,7 @@
 ```swift
 var name: String? = "Sena"
 ```
-- `name` 은 문자열이거나 nill일 수도 있는 상태
+- `name` 은 문자열이거나 nil일 수도 있는 상태
 - `String?` 는 "Optional String"이라 읽음
 
 - 선언 방법
@@ -44,7 +41,7 @@ var name: String? = "Sena"
   print(name!) // "Sena"
 	```
 	`!`로 값을 강제로 꺼냄
-	만약 nill이면 앱이 크래시 발생
+	만약 nil이면 앱이 크래시 발생
 
 + 안전한 언래핑(옵셔널 바인딩:Optional 값이 nil인지 아닌지 확인하고, 값이 있다면 안전하게 꺼내서 사용하는 방)
 	+ if let
@@ -80,17 +77,17 @@ var name: String? = "Sena"
 		```
 
 
-+ Nill 병합 연산자 ??
++ Nil 병합 연산자 ??
   ```swift
-  let realName - name ?? "이름 없음" // name이 nill이면 "이름없음"을 대신 사용
+  let realName - name ?? "이름 없음" // name이 nil이면 "이름없음"을 대신 사용
 	```
 
 
 + 옵셔널 체이닝 (`?.`)
 	```swift
-	let length: name?.count // name이 nill이면 전체 결과도 nill
+	let length: name?.count // name이 nil이면 전체 결과도 nil
 	```
-	+ 옵셔널 값이 nill일 수 있는 상황에서 안전하게 속성이나 메서드에 접근하는 방법
+	+ 옵셔널 값이 nil일 수 있는 상황에서 안전하게 속성이나 메서드에 접근하는 방법
 	
 	+ 옵셔널 체이닝으로 프로퍼티 접근
 		```swift
@@ -131,8 +128,8 @@ var name: String? = "Sena"
 		```  
 	
 	+ 언제 사용?
-	  1. 값이 nill일 수 있는 경우
-	  2. nill이면 그냥 무시하고, 아니면 이어서 무언가 하고 싶을 때
+	  1. 값이 nil일 수 있는 경우
+	  2. nil이면 그냥 무시하고, 아니면 이어서 무언가 하고 싶을 때
 	  3. 중첩된 객체 속성에 접근할 때 (ex. user → profile → email 등)
 
 + 선택적 체이닝
@@ -180,11 +177,4 @@ var name: String? = "Sena"
 		// 중간에 ceo가 nil이면, 전체 결과는 nil
 		```
 		-> 여러 옵셔널 프로퍼티를 안전하게 타고 내려감
-		-> 중간에서 하나라도 nill이면 전체가 nill
-
-
-## Keywords
-+ 파생된 키워드들을 작성
-
-## References
-- 참고한 레퍼런스를 작성 (예 : Apple의 공식 문서)
+		-> 중간에서 하나라도 nil이면 전체가 nil

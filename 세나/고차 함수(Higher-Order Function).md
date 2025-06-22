@@ -16,50 +16,50 @@
 
 ## 주요 기능
 + 함수를 인자로 받는 함수
-``` swift
-func greet(action: (String) -> Void) { 
-	action("세연") // -> "세연"이라는 문자열을 클로저에 전달
-} 
-
-// 함수 전달하기 
-greet { name in 
-	print("안녕하세요, \(name)님!") 
-}
-```
+	``` swift
+	func greet(action: (String) -> Void) { 
+		action("세연") // -> "세연"이라는 문자열을 클로저에 전달
+	} 
+	
+	// 함수 전달하기 
+	greet { name in 
+		print("안녕하세요, \(name)님!") 
+	}
+	```
 		greet 함수는 action이라는 클로저(함수)를 인자로 받음
 		action: (String) -> Void
 		action은 String을 받아서 아무것도 반환하지 않는 함수 (-> Void)
 
 + 함수를 결과로 반환하는 함수
-``` swift
-func makeMultiplier(factor: Int) -> (Int) -> Int {
-    return { number in
-        return number * factor
-    }
-}
-
-let multiplyBy2 = makeMultiplier(factor: 2)
-print(multiplyBy2(5))
-// multiplyBy2(5) → 5 * 2 → 10
-// 결과: 10
-```
+	``` swift
+	func makeMultiplier(factor: Int) -> (Int) -> Int {
+	    return { number in
+	        return number * factor
+	    }
+	}
+	
+	let multiplyBy2 = makeMultiplier(factor: 2)
+	print(multiplyBy2(5))
+	// multiplyBy2(5) → 5 * 2 → 10
+	// 결과: 10
+	```
 		makeMultiplier(factor:) 함수는 어떤 숫자를 받아서,
 		곱하기 factor를 해주는 함수를 만들어서 반환하는 함수
 		(Int) -> Int 형태의 함수를 반환
 		매개변수로 number를 받아서
 		number * factor를 리턴하는 클로저를 생성하고 돌려줌
-```swift
-	func makeAdder(base: Int) -> (Int) -> Int {
-	    return { value in
-	        return base + value
-	    }
-	}
-	
-	let add5 = makeAdder(base: 5)
-	print(add5(3))  
-	// add5(3) → 5 + 3 = 8
-	// 8
-```
+	```swift
+		func makeAdder(base: Int) -> (Int) -> Int {
+		    return { value in
+		        return base + value
+		    }
+		}
+		
+		let add5 = makeAdder(base: 5)
+		print(add5(3))  
+		// add5(3) → 5 + 3 = 8
+		// 8
+	```
 
 + 컨테이너란? - 여러 값을 담을 수 있는 자료 구조
 	+ Array - 배열
@@ -85,7 +85,7 @@ print(multiplyBy2(5))
 	// [1, 4, 9, 16]
 	```
 	- $0은 클로저의 첫 번째 매개변수, 즉 배열의 각 요소.
-	- 각 요소를 제곱해서 새 배열을 만든다 (즈, 새 배열이 squared)
+	- 각 요소를 제곱해서 새 배열을 만든다 (즉, 새 배열이 squared)
 	
 	```swift
 	let names = ["seyeon", "yuna", "sojung"]
@@ -218,7 +218,7 @@ print(multiplyBy2(5))
 
 + # compactMap(nil 제거 + 변형)
 	+ 컨테이너의 각 요소를 조건을 지정하여 호출할 때, nil 이 아닌 배열을 반환
-	  (주로 nill을 제거하거나, 변환 과정에서 nill이 나올 수 있는 경우 필터링)
+	  (주로 nil을 제거하거나, 변환 과정에서 nil이 나올 수 있는 경우 필터링)
 	```swift
 	func compactMap<ElementOfResult>(
 		_ transform: (Self.Element) throws -> ElementOfResult?
@@ -233,7 +233,7 @@ print(multiplyBy2(5))
 		let numbers = strings.compactMap { Int($0) }
 		// 결과: [1, 2, 4]
 		```
-	+ "three"는 `Int( "three" )`가 `nill`이기 때문에 제거
+	+ "three"는 `Int( "three" )`가 `nil`이기 때문에 제거
 	  
 	+ map
 		```swift
@@ -366,7 +366,7 @@ print(multiplyBy2(5))
 
 + # Map 삼형제
   + map: 변환만 함 (원본 구조 유지)
-  + compactMap: 변환 + nill 제거 (Optional 처리)
+  + compactMap: 변환 + nil 제거 (Optional 처리)
   + flatMap: 변환 + 평탄화 (중첩된 배열 펼침)
 	```swift
 	let input = ["1", "2", "three"]
@@ -413,10 +413,6 @@ print(multiplyBy2(5))
 		- 각 요소를 2번씩 반복한 배열로 변환 (Array(repeating:count:)) -> 2차 배열
 		- flatMap은 결과 배열을 **1차원으로 평탄화** (즉, 2차원 → 1차원으로 합침)
 
-
-
-## Keywords
-+ 
 
 ## References
 - Apple의 공식 문서

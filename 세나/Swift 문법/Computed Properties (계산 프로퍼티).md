@@ -215,4 +215,4 @@
 		```
 
 ## References
-- swift.org
+- [swift.org](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/properties/#Computed-Properties)

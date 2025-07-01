@@ -68,12 +68,12 @@ func presentMatchmaker(from rootVC: UIViewController) {
 
 번외편 : 전화가 올 때, 직접 받는 대신 비서(delegate)가 받아줌 = 이벤트가 생기면 delegate 메서드 호출
 
-|**항목**|**Delegate**|**클로저 (Closure)**|
-|---|---|---|
-|목적|여러 메서드 이벤트 위임|하나의 작업을 간결하게 넘김|
-|구조|protocol 기반|() -> Void 형태 함수 변수|
-|복잡도|설정은 조금 복잡|간단하게 넘겨주기 쉬움|
-|사용 예|TableView, GameKit, CoreLocation 등|버튼 액션, 단일 이벤트 처리|
+| **항목** | **Delegate**                       | **클로저 (Closure)**   |
+| ------ | ---------------------------------- | ------------------- |
+| 목적     | 여러 메서드 이벤트 위임                      | 하나의 작업을 간결하게 넘김     |
+| 구조     | protocol 기반                        | () -> Void 형태 함수 변수 |
+| 복잡도    | 설정은 조금 복잡                          | 간단하게 넘겨주기 쉬움        |
+| 사용 예   | TableView, GameKit, CoreLocation 등 | 버튼 액션, 단일 이벤트 처리    |
 
 ## 직접 사용해보기
 

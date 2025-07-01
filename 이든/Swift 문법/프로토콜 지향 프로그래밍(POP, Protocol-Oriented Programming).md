@@ -8,7 +8,7 @@ GQ3. protocol에 extension을 붙이면 뭐가 좋은가?
 
 ## **1. POP란?**
 
-POP는 **Protocol-Oriented Programming**의 줄임말로, Swift 언어에서 특히 강조되는 프로그래밍 패러다임입니다.  
+POP는 **Protocol-Oriented Programming**의 줄임말로, Swift 언어에서 특히 강조되는 프로그래밍 패러다임입니다. 
 이 패러다임은 객체지향(OOP)처럼 클래스와 상속에 의존하기보다는, **프로토콜** 과 **익스텐션(Extension)** 을 중심으로 코드의 구조와 재사용성을 설계합니다
 
 [POP 관련 문서](https://kentakodashima.medium.com/swift-understanding-protocol-oriented-programming-bbef282ae922)

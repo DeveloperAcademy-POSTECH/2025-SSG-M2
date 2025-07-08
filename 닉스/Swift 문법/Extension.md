@@ -190,6 +190,7 @@ ScrollStack{ ... }
 	}
 ```
 
+
 ** 주의
 
 | 저장 프로퍼티 추가 불가    | `extension`에서는 `var name: String = ""` 같은 저장 프로퍼티 추가 불가 |

@@ -35,7 +35,7 @@ do {
 } catch FileError.unreadable {
     print("File unreadable.")
 } catch {
-    print("An unknown error occurred: \\(error)")
+    print("An unknown error occurred: \(error)")
 }
 ```
 - `do` 블록 안에서 `try`를 사용해야 함
@@ -102,7 +102,7 @@ do {
 } catch LoginError.wrongPassword {
     print("비밀번호가 틀렸습니다.")
 } catch {
-    print("알 수 없는 오류: \\(error)")
+    print("알 수 없는 오류: \(error)")
 }
 ```
 
